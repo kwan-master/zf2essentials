@@ -16,14 +16,22 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-    }
 
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'),100);
+    }
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function onDispatch(MvcEvent $event){
+
+        $viewModel = $event->getViewModel();
+        $viewModel->setVariable('categories',"CATEGORY LIST");
+
     }
 
     public function getAutoloaderConfig()
