@@ -45,11 +45,7 @@
         </nav>
         <div class="container">
             <div class="col-lg-2">
-                <ul>
-                <?php foreach ($this->categories as $category){ ?>
-                    <li><?php echo $category;?></li>
-                <?php } ?>
-                </ul>
+                <?php  echo $this->leftLinks($categories,$this->basePath("/market/view/main")); ?>
             </div>
             <div class="col-lg-8"><?php echo $this->content; ?></div>
 
