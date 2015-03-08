@@ -114,6 +114,11 @@ return array(
 
         ),
     ),
+    'service_manager' => array(
+        'factories' => array(
+            'market-post-form'  => 'Market\Factory\PostFormFactory'
+        )
+    ),
     'view_manager' => array(
         'template_path_stack' => array(
             'Market' => __DIR__ . '/../view',
