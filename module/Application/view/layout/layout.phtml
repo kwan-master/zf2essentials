@@ -44,18 +44,19 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
+        z
         <div class="container">
             <div class="col-lg-2">
-                <?php  echo $this->leftLinks($categories,$this->basePath()."/market/view/main"); ?>
+
+                <?php  echo $this->leftLinks($categories,$this->basePath("/market/view/main")); ?>
             </div>
             <div class="col-lg-8"><?php echo $this->content; ?></div>
 
-
-
+            <hr>
+            <footer>
+                <p>&copy; 2005 - <?php //echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
         </div> <!-- /container -->
-        <footer>
-            <p>&copy; 2005 - <?php //echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
-        </footer>
         <?php echo $this->inlineScript() ?>
     </body>
 </html>

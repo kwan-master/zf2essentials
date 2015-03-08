@@ -14,6 +14,7 @@ class PostFormFactory implements FactoryInterface{
         $post = new PostForm();
         $post->setCategories($categories);
         $post->buildForm();
+        $post->setInputFilter($serviceManager->get("market-post-filter"));
         //  $post->setPostForm($service->get("market-post-form"));
 
         return $post;
