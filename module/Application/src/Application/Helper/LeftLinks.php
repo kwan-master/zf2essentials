@@ -9,7 +9,7 @@ class LeftLinks extends AbstractHelper{
 
         $list = "<ul>";
         foreach($values as $value){
-            $list.= "<li><a href='$urlPrefix/$value'>$value</li>";
+            $list.= "<li><a href='$urlPrefix/$value'>$value</a></li>";
         }
         $list.= "</ul>";
 
