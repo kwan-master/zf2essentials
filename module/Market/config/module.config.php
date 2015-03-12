@@ -118,6 +118,13 @@ return array(
         'factories' => array(
             'market-post-form'  => 'Market\Factory\PostFormFactory',
             'market-post-filter' => 'Market\Factory\PostFormFilterFactory'
+        ),
+        'services' => array(
+            'date_expires' => array(
+                '2015-04-22',
+                '2015-05-22',
+                '2015-06-22',
+            )
         )
     ),
     'view_manager' => array(

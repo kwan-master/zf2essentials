@@ -13,6 +13,7 @@ class PostFormFilter extends InputFilter{
         $this->categories = $categories;
     }
 
+
     public function buildFilter(){
 
         $category = new Input("category");
@@ -34,8 +35,20 @@ class PostFormFilter extends InputFilter{
         $title->getValidatorChain()
               ->attachByName("StringLength",array("min"=> 1, "max"=> 120));
 
+
+       $description = new Input("description");
+        $description->getValidatorChain()
+            ->attachByName("StringLength",array("min"=> 1, "max"=> 120));
+
+        $email = new Input("contact_email");
+        $email->getValidatorChain()->attachByName("EmailAddress");
+
+
+
         $this->add($category)
-            ->add($title);
+            ->add($title)
+            ->add($description)
+            ->add($email);
 
     }
 
