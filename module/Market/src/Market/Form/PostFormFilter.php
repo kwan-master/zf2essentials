@@ -40,6 +40,9 @@ class PostFormFilter extends InputFilter{
         $description->getValidatorChain()
             ->attachByName("StringLength",array("min"=> 1, "max"=> 120));
 
+        $date_expires = new Input("description");
+
+
         $email = new Input("contact_email");
         $email->getValidatorChain()->attachByName("EmailAddress");
 

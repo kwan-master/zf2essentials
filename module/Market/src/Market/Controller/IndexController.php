@@ -14,17 +14,20 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+    use ListingsTableTrait;
     public function indexAction()
     {
 
         $messages = array("Welcome to the Online Market");
 
+
         if($this->flashMessenger()->hasMessages()){
             $messages = $this->flashMessenger()->getMessages();
         }
 
+        $item = $this->listingsTable->getMostRecentListing();
         //return array("messages"=> $messages);
-        return new ViewModel(array("messages" =>$messages));
+        return new ViewModel(array("messages" =>$messages,"item"=>$item));
     }
 
     public function fooAction()

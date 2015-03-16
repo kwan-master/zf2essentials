@@ -8,19 +8,25 @@ use Zend\View\Model\ViewModel;
 
 class ViewController extends AbstractActionController{
 
+    use ListingsTableTrait;
+
     public function indexAction(){
 
 
         $category = $this->params()->fromRoute("category");
 
+        $lists = $this->listingsTable->getListingsByCategory($category);
 
-        return new ViewModel(array("category" =>$category));
+
+        return new ViewModel(array("category" =>$category,"lists" => $lists));
     }
 
 
     public function itemAction(){
 
         $itemId = $this->params()->fromRoute("itemId");
+
+        $item = $this->listingsTable->getListingById($itemId);
 
         if(empty($itemId)){
             $this->flashMessenger()->addMessage("Item Not Found");
@@ -29,7 +35,7 @@ class ViewController extends AbstractActionController{
         }
 
 
-        return new ViewModel(array("itemId" =>$itemId));
+        return new ViewModel(array("itemId" =>$itemId,"item" => $item));
 
     }
 }

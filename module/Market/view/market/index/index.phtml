@@ -1,9 +1,9 @@
-<strong>Module:</strong>        Market &raquo;
-<strong>Controller:</strong>    Index &raquo;
-<strong>Action:</strong>        index
+<h1>Online Market</h1>
 
 
 
 <?php
 echo $this->htmllist($this->messages);
  ?>
+
+<?php echo $this->partial("market/partials/item",array('item'=>$this->item));?>

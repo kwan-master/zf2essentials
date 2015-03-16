@@ -3,9 +3,9 @@ namespace Market\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Market\Controller\PostController;
+use Market\Controller\ViewController;
 
-class PostControllerFactory implements FactoryInterface{
+class ViewControllerFactory implements FactoryInterface{
 
     public function createService(ServiceLocatorInterface $controllerManager){
 
@@ -15,11 +15,11 @@ class PostControllerFactory implements FactoryInterface{
 
         $categories = $service->get('categories');
 
-        $post = new PostController();
-        $post->setCategories($categories);
+        $post = new ViewController();
+       // $post->setCategories($categories);
 
 
-       $post->setPostForm($service->get("market-post-form"));
+       // $post->setPostForm($service->get("market-post-form"));
         $post->setListingsTable($service->get("listings-table"));
 
         return $post;
