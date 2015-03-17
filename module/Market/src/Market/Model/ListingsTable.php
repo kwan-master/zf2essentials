@@ -3,7 +3,9 @@
 namespace Market\Model;
 
 
+use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 
 class ListingsTable extends TableGateway{
@@ -23,8 +25,18 @@ class ListingsTable extends TableGateway{
 
         $sql = new Select();
 
+        $expression = new Expression("MAX('listings_id')");
+
+        $sql_sub = new Select();
+        $sql_sub->from(self::$tableName)
+                ->columns(array($expression));
+
+        $where = new Where();
+        $where->in('listings_id',$sql_sub);
+
         $sql->from(self::$tableName)
             ->order("listings_id DESC")
+            ->where($where)
             ->limit(1);
 
         return $this->selectWith($sql)->current();
