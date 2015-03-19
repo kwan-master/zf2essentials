@@ -67,7 +67,7 @@ return array(
                             'main' => array(
                                 'type'    => 'Segment',
                                 'options' => array(
-                                    'route'    => '/main[/:category]',
+                                    'route'    => '/main[/:category][/]',
                                     'constraints' => array(
                                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -80,7 +80,7 @@ return array(
                             'item' => array(
                                 'type'    => 'Segment',
                                 'options' => array(
-                                    'route'    => '/item[/:itemId]',
+                                    'route'    => '/item[/:itemId][/]',
                                     'constraints' => array(
                                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -96,9 +96,9 @@ return array(
                         ),
                     ),
                     'post' => array(
-                        'type'    => 'Literal',
+                        'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/post',
+                            'route'    => '/post[/]',
                             'defaults' => array(
                                 // Change this value to reflect the namespace in which
                                 // the controllers for your module are found
