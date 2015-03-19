@@ -79,6 +79,7 @@ return array(
                 'transportation',
                 'wanted'
             )
+
         )
     ),
     'translator' => array(

@@ -1,110 +1,116 @@
 <?php
-
 namespace Market\Form;
 
-use Zend\Captcha as Capt;
-use Zend\Form\Element\Captcha;
-use Zend\Form\Element\Email;
-use Zend\Form\Element\Number;
-use Zend\Form\Element\Radio;
-use Zend\Form\Element\Select;
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Element\Url;
 use Zend\Form\Form;
+use Zend\Form\Element;
+use Zend\Captcha\Image as ImageCaptcha;
 
+class PostForm extends Form
+{
+    
+	use CategoryTrait;
+	use ExpireDaysTrait;
+	use CaptchaTrait;
+	
+	/**
+	 * Categories will be retrieved from the service manager
+	 * @param array $captchaOptions
+	 */
+	public function buildForm()
+	{
+	   // form tag attributes
+	   $this->setAttribute('method', 'POST');
 
-class PostForm extends Form{
+		// define elements
+		$category = new Element\Select('category');
+		$category->setLabel('Category')
+		         ->setValueOptions(array_combine($this->getCategories(),$this->getCategories()));
 
-    private $categories;
-    private $date_expires;
+		$title = new Element\Text('title');
+		$title->setLabel('Title')
+			  ->setAttributes(array('size' => 60, 
+			                        'maxLength' => 128,
+			                        'required' => 'required',
+			                        'placeholder' => 'Listing header'));
+		
+        $photo = new Element\Text('photo_filename');
+		$photo->setLabel('Photo')
+			  ->setAttribute('maxlength', 1024)
+		      ->setAttribute('placeholder', 'Enter URL of a JPG');
 
-    public function buildForm(){
+		$price = new Element\Text('price');
+		$price->setLabel('Price')
+			  	 ->setAttribute('title', 'Enter price as nnn.nn')
+	 		  	 ->setAttribute('size', 16)
+			  	 ->setAttribute('maxlength', 16)
+		         ->setAttribute('placeholder', 'Enter some value');
+		
+		$expires = new Element\Radio('expires');
+		$expires->setLabel('Expires')
+			    ->setAttribute('title', 'The expiration date will be calculated from today')
+			    ->setAttribute('class', 'expiresButton')
+			    ->setValueOptions($this->getExpireDays());
 
-        $this->setAttribute("method","POST");
+		$city = new Element\Text('cityCode');
+		$city->setLabel('Nearest City')
+			  ->setAttribute('title', 'Select the city of the item')
+			  ->setAttribute('id', 'cityCode')
+		      ->setAttribute('placeholder', 'Start typing and choose the city');
 
-        $category = new Select("category");
-        $category->setValueOptions(array_combine($this->categories,$this->categories))
-            ->setLabel("Category");
+		$name = new Element\Text('contact_name');
+		$name->setLabel('Contact Name')
+			 ->setAttribute('title', 'Enter the name of the person to contact for this item')
+			 ->setAttribute('size', 40)
+			 ->setAttribute('maxlength', 255);
 
+		$phone = new Element\Text('contact_phone');
+		$phone->setLabel('Contact Phone Number')
+			  ->setAttribute('title', 'Enter the phone number of the person to contact for this item')
+			  ->setAttribute('size', 20)
+			  ->setAttribute('maxlength', 32);
 
-        $title = new Text("title");
-        $title->setAttributes(array("size"=> 10,"maxLength"=> 20))
-            ->setLabel("Title");
+		$email = new Element\Email('contact_email');
+		$email->setLabel('Contact Email')
+			  ->setAttribute('title', 'Enter the email address of the person to contact for this item')
+			  ->setAttribute('size', 40)
+			  ->setAttribute('maxlength', 255);
 
-        $price = new Number("Price");
-        $price->setAttributes(array("size"=> 10,"maxLength"=> 20))
-            ->setLabel("Price");
+		$description = new Element\Textarea('description');
+		$description->setLabel('Description')
+					->setAttribute('title', 'Enter a suitable description for this posting')
+					->setAttribute('rows', 4)
+					->setAttribute('cols', 80);
 
-        $date_expires = new Radio("date_expires");
-        $date_expires->setValueOptions(array_combine($this->date_expires,$this->date_expires))
-            ->setLabel("Date expires");
+		$delCode = new Element\Text('delete_code');
+		$delCode->setLabel('Delete Code')
+			 ->setAttribute('title', 'Enter the delete code for this item')
+			 ->setAttribute('size', 16)
+			 ->setAttribute('maxlength', 16);
 
+		$captcha = new Element\Captcha('captcha');
+		$captchaAdapter = new ImageCaptcha();
+		$captchaAdapter->setWordlen(4)
+			  		   ->setOptions($this->captchaOptions);
+		$captcha->setCaptcha($captchaAdapter)
+				->setLabel('Help us to prevent SPAM!')
+				->setAttribute('class', 'captchaStyle')
+				->setAttribute('title', 'Help to prevent SPAM');
 
-        $descrition = new Textarea("descrition");
-        $descrition->setAttributes(array("size"=> 10,"maxLength"=> 20))
-                   ->setLabel("Description");
+		$submit = new Element\Submit('submit');
+		$submit->setAttribute('value', 'Post');
 
-
-        $photo_filename = new Url("photo_filename");
-        $photo_filename->setLabel("Photo filename");
-
-        $contact_name = new Text("contact_name");
-        $contact_name->setAttributes(array("size"=> 10,"maxLength"=> 20))
-            ->setLabel("Contact name");
-
-        $contact_email = new Email("contact_email");
-        $contact_email->setAttributes(array("size"=> 10,"maxLength"=> 20))
-            ->setLabel("Contact email");
-
-        $contact_phone= new Text("contact_phone");
-        $contact_phone->setAttributes(array("size"=> 10,"maxLength"=> 20))
-            ->setLabel("Contact phone");
-
-        $cityCode = new Select("cityCode");
-        $cityCode->setLabel("City code");
-
-        $delete_code = new Number("delete_code");
-        $delete_code->setLabel("Delete code");
-
-        $captch = new Captcha("captcha");
-        $captch->setCaptcha(new Capt\Dumb())
-            ->setLabel('Please verify you are human');
-
-
-
-
-        $input = new Submit("submit");
-        $input->setAttribute("value","Submit");
-
-
-
-        $this->add($category)
-             ->add($title)
-             ->add($price)
-             ->add($date_expires)
-             ->add($descrition)
-             ->add($photo_filename)
-             ->add($contact_name)
-             ->add($contact_email)
-             ->add($contact_phone)
-             ->add($cityCode)
-             ->add($delete_code)
-             ->add($captch)
-             ->add($input);
-
-
-
-
-    }
-
-    public function setCategories($categories){
-        $this->categories = $categories;
-    }
-
-    public function setDate($date){
-        $this->date_expires = $date;
-    }
-
+		$this->add($category)
+			 ->add($title)
+			 ->add($photo)
+			 ->add($price)
+			 ->add($expires)
+			 ->add($city)
+			 ->add($name)
+			 ->add($phone)
+			 ->add($email)
+			 ->add($description)
+			 ->add($delCode)
+			 ->add($captcha)
+			 ->add($submit);
+	}
 }

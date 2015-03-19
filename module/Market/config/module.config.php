@@ -127,6 +127,16 @@ return array(
                 '2015-04-22',
                 '2015-05-22',
                 '2015-06-22',
+            ),
+            'market-expire-days' => array(
+                '2',
+                '5',
+                '10'
+            ),
+            'market-captcha-options' => array(
+                'titmeout' => 300 ,
+                'height' => '40',
+                'font' => __DIR__ . '/../../../public/fonts/glyphicons-halflings-regular.TTF' ,
             )
         )
     ),
