@@ -45,12 +45,17 @@ class ListingsTable extends TableGateway{
 
     public function addPosting($data){
 
+        var_dump($data);
+
         list($city,$country) = explode(",",$data["cityCode"]);
 
         $data["city"] = trim($city);
         $data["country"] = trim($country);
-
+        date_default_timezone_set('America/Los_Angeles');
         $date = new \DateTime();
+
+
+
         if($data["expires"]){
             if($data["expires"] == 30){
                 $date->add("P1M");

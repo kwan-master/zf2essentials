@@ -49,6 +49,7 @@ class PostForm extends Form
 		$expires->setLabel('Expires')
 			    ->setAttribute('title', 'The expiration date will be calculated from today')
 			    ->setAttribute('class', 'expiresButton')
+                ->setValue("0")
 			    ->setValueOptions($this->getExpireDays());
 
 		$city = new Element\Text('cityCode');
@@ -110,7 +111,7 @@ class PostForm extends Form
 			 ->add($email)
 			 ->add($description)
 			 ->add($delCode)
-			 ->add($captcha)
+		//	 ->add($captcha)
 			 ->add($submit);
 	}
 }
