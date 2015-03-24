@@ -25,7 +25,7 @@ class ListingsTable extends TableGateway{
 
         $sql = new Select();
 
-        $expression = new Expression("MAX('listings_id')");
+        $expression = new Expression("MAX(listings_id) as list");
 
         $sql_sub = new Select();
         $sql_sub->from(self::$tableName)
@@ -38,6 +38,8 @@ class ListingsTable extends TableGateway{
             ->order("listings_id DESC")
             ->where($where)
             ->limit(1);
+
+
 
         return $this->selectWith($sql)->current();
     }

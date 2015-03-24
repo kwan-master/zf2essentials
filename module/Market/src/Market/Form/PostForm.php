@@ -111,7 +111,7 @@ class PostForm extends Form
 			 ->add($email)
 			 ->add($description)
 			 ->add($delCode)
-		//	 ->add($captcha)
+			 ->add($captcha)
 			 ->add($submit);
 	}
 }

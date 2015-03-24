@@ -26,6 +26,8 @@ class IndexController extends AbstractActionController
         }
 
         $item = $this->listingsTable->getMostRecentListing();
+
+
         //return array("messages"=> $messages);
         return new ViewModel(array("messages" =>$messages,"item"=>$item));
     }
