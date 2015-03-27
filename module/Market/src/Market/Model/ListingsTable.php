@@ -47,7 +47,7 @@ class ListingsTable extends TableGateway{
 
     public function addPosting($data){
 
-        var_dump($data);
+
 
         list($city,$country) = explode(",",$data["cityCode"]);
 

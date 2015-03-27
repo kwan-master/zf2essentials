@@ -138,7 +138,7 @@ return array(
                 'height' => '40',
                 'imgDir'    => __DIR__ . '/../../../public/images/captcha',
                 'imgUrl'    => '/images/captcha',
-                'font' => __DIR__ . '/../../../public/fonts/glyphicons-halflings-regular.TTF' ,
+                'font' => __DIR__ . '/../../../public/fonts/AliquamREG.ttf' ,
             )
         )
     ),
